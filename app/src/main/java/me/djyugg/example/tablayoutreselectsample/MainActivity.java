@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +54,24 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            tabLayout.getTabAt(i).setTag(i + 1);
+        }
+
+        TabLayout.OnTabSelectedListener onTabSelectedListener = new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                Log.v("OnTabSelectedListener", "onTabUnselected SECTION " + tab.getTag());
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                Log.v("OnTabSelectedListener", "onTabReselected SECTION " + tab.getTag());
+            }
+        };
+
+        tabLayout.setOnTabSelectedListener(onTabSelectedListener);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
