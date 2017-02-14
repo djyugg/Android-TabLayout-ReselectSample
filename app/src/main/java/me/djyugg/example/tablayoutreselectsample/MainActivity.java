@@ -59,7 +59,11 @@ public class MainActivity extends AppCompatActivity {
             tabLayout.getTabAt(i).setTag(i + 1);
         }
 
-        TabLayout.OnTabSelectedListener onTabSelectedListener = new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+            }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 Log.v("OnTabSelectedListener", "onTabUnselected SECTION " + tab.getTag());
@@ -69,9 +73,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
                 Log.v("OnTabSelectedListener", "onTabReselected SECTION " + tab.getTag());
             }
-        };
-
-        tabLayout.setOnTabSelectedListener(onTabSelectedListener);
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
